@@ -408,12 +408,12 @@ interface IDEXFactory {
 
 
 
-// File: ICRO20.sol
+// File: ICRC20.sol
 
 
 pragma solidity 0.8.6;
 
-interface ICRO20 {
+interface ICRC20 {
 
     /* Functions */
     
@@ -650,59 +650,59 @@ library Address {
     }
 }
 
-// File: SafeCRO20.sol
+// File: SafeCRC20.sol
 
 
 
 pragma solidity 0.8.6;
 
 /**
- * @title SafeCRO20
- * @dev Wrappers around CRO20 operations that throw on failure (when the token
+ * @title SafeCRC20
+ * @dev Wrappers around CRC20 operations that throw on failure (when the token
  * contract returns false). Tokens that return no value (and instead revert or
  * throw on failure) are also supported, non-reverting calls are assumed to be
  * successful.
- * To use this library you can add a `using SafeCRO20 for ICRO20;` statement to your contract,
+ * To use this library you can add a `using SafeCRC20 for ICRC20;` statement to your contract,
  * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
  */
-library SafeCRO20 {
+library SafeCRC20 {
     using Address for address;
 
-    function safeTransfer(ICRO20 token, address to, uint256 value) internal {
+    function safeTransfer(ICRC20 token, address to, uint256 value) internal {
         _callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
     }
 
-    function safeTransferFrom(ICRO20 token, address from, address to, uint256 value) internal {
+    function safeTransferFrom(ICRC20 token, address from, address to, uint256 value) internal {
         _callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, value));
     }
 
     /**
      * @dev Deprecated. This function has issues similar to the ones found in
-     * {ICRO20-approve}, and its usage is discouraged.
+     * {ICRC20-approve}, and its usage is discouraged.
      *
      * Whenever possible, use {safeIncreaseAllowance} and
      * {safeDecreaseAllowance} instead.
      */
-    function safeApprove(ICRO20 token, address spender, uint256 value) internal {
+    function safeApprove(ICRC20 token, address spender, uint256 value) internal {
         // safeApprove should only be called when setting an initial allowance,
         // or when resetting it to zero. To increase and decrease it, use
         // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
         // solhint-disable-next-line max-line-length
         require((value == 0) || (token.allowance(address(this), spender) == 0),
-            "SafeCRO20: approve from non-zero to non-zero allowance"
+            "SafeCRC20: approve from non-zero to non-zero allowance"
         );
         _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, value));
     }
 
-    function safeIncreaseAllowance(ICRO20 token, address spender, uint256 value) internal {
+    function safeIncreaseAllowance(ICRC20 token, address spender, uint256 value) internal {
         uint256 newAllowance = token.allowance(address(this), spender) + value;
         _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
     }
 
-    function safeDecreaseAllowance(ICRO20 token, address spender, uint256 value) internal {
+    function safeDecreaseAllowance(ICRC20 token, address spender, uint256 value) internal {
         unchecked {
             uint256 oldAllowance = token.allowance(address(this), spender);
-            require(oldAllowance >= value, "SafeCRO20: decreased allowance below zero");
+            require(oldAllowance >= value, "SafeCRC20: decreased allowance below zero");
             uint256 newAllowance = oldAllowance - value;
             _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
         }
@@ -714,15 +714,15 @@ library SafeCRO20 {
      * @param token The token targeted by the call.
      * @param data The call data (encoded using abi.encode or one of its variants).
      */
-    function _callOptionalReturn(ICRO20 token, bytes memory data) private {
+    function _callOptionalReturn(ICRC20 token, bytes memory data) private {
         // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
         // we're implementing it ourselves. We use {Address.functionCall} to perform this call, which verifies that
         // the target address contains contract code and also asserts for success in the low-level call.
 
-        bytes memory returndata = address(token).functionCall(data, "SafeCRO20: low-level call failed");
+        bytes memory returndata = address(token).functionCall(data, "SafeCRC20: low-level call failed");
         if (returndata.length > 0) { // Return data is optional
             // solhint-disable-next-line max-line-length
-            require(abi.decode(returndata, (bool)), "SafeCRO20: CRO20 operation did not succeed");
+            require(abi.decode(returndata, (bool)), "SafeCRC20: CRC20 operation did not succeed");
         }
     }
 }
@@ -734,12 +734,12 @@ library SafeCRO20 {
 
 pragma solidity 0.8.6;
 
-contract Tendies is Context, ICRO20 {
+contract Tendies is Context, ICRC20 {
 
     /* LIBRARIES */
     
     using SafeMath for uint256;
-    using SafeCRO20 for ICRO20;
+    using SafeCRC20 for ICRC20;
     using Address for address;
 
     /* BASIC TOKEN CONSTANTS */
@@ -962,7 +962,7 @@ contract Tendies is Context, ICRO20 {
         uint256 indexed amount
     );
     
-    event CRO20Recovered(
+    event CRC20Recovered(
         address indexed token,
         address indexed recipient,
         uint256 indexed amount
@@ -2027,7 +2027,7 @@ constructor (){
     }
     
     /**
-     * Function: Allows the owner to withdraw the total balance of a specific CRO20 token 
+     * Function: Allows the owner to withdraw the total balance of a specific CRC20 token 
      *  from the TENDIES contract.
      *  
      * Justification: As above but for any token. The owner does not preclude the possibility of 
@@ -2047,9 +2047,9 @@ constructor (){
      *  to withdraw LP from the contract will be clearly announced and the input of the FrenDAO 
      *  will be welcomed.
      */
-    function recoverCRO20(address _token) external onlyOwner() {
-        emit CRO20Recovered(_token, payableAddr(), ICRO20(_token).balanceOf(address(this)));
-        ICRO20(_token).safeTransfer(payableAddr(), ICRO20(_token).balanceOf(address(this)));
+    function recoverCRC20(address _token) external onlyOwner() {
+        emit CRC20Recovered(_token, payableAddr(), ICRC20(_token).balanceOf(address(this)));
+        ICRC20(_token).safeTransfer(payableAddr(), ICRC20(_token).balanceOf(address(this)));
     }
     
     /**
