@@ -1045,8 +1045,8 @@ constructor (){
         DEXRouter = DEXRouterLocal;
         
         // Sets DexPad addresses to eliminate need to manually whitelist after deploying.
-        dexPadTokenLockerAddress = 0xb3548a9330296A7ef8E4AB0E25A3c21fbc08E909;
-        dexPadAirdropperAddress = 0xa07AAC0D60B5ecdC00F15CDaDD5cCbAB11F7a9f8;
+        dexPadTokenLockerAddress = 0x2EC4e8617AB86C05CB0Be6E303BB71eBaeDf0C3E;
+        dexPadAirdropperAddress = 0xF85ED2faef90dB86935061016bdEE08C33017107;
 
         // Whitelists key addresses from tax.
         isAccountExcludedFromTax[owner()] = true; 
