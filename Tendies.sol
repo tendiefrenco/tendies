@@ -1030,7 +1030,7 @@ constructor (){
         emit Transfer(address(0), owner(), TOKEN_MAX_SUPPLY);      
 
         // Sets router address
-        DEXRouterAddress = 0x2fFAa0794bf59cA14F268A7511cB6565D55ed40b;
+        DEXRouterAddress = 0xdADaae6cDFE4FA3c35d54811087b3bC3Cd60F348;
         
         // Gets the router.
         IDEXRouter02 DEXRouterLocal = IDEXRouter02(DEXRouterAddress);
