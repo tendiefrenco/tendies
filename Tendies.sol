@@ -981,9 +981,9 @@ constructor (){
         // and it sets the values for important addresses and variables.
         
         // Sets Tendie Fren Co. wallets.
-        growthAddress = 0xB380939A15aF706a98D8feAe8F5C7167d604fDf8;
-        funAddress = 0xdd2236B6cC96e1F16B1d544452cFF9828182D217;
-        charityAddress = 0x86977f3d3F7790bA21EC2b93d082eFb8C2aB8488;
+        growthAddress = 0x6c8fC09De5ff53dd0cE360574e3485aa734Fd125;
+        funAddress = 0xD67c5FEC4c9B70Ce7045B181B542068220EBBB5E;
+        charityAddress = 0x0c8F0ab88AC430b536BDA383a59d99FD48c5aF56;
 
         // Sets owner.
         ownerOfToken = _msgSender();
@@ -1029,8 +1029,7 @@ constructor (){
         reflectTokensOwned[owner()] = _rTotal; 
         emit Transfer(address(0), owner(), TOKEN_MAX_SUPPLY);      
 
-        // Sets router address (Photonswap testnet router).
-        // Update for Mainnet launch.
+        // Sets router address
         DEXRouterAddress = 0x2fFAa0794bf59cA14F268A7511cB6565D55ed40b;
         
         // Gets the router.
